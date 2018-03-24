@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import java.io.IOException;
 import java.util.jar.Manifest;
@@ -25,8 +26,10 @@ import java.util.jar.Manifest;
 public class audioRecorder extends AppCompatActivity {
     //Helps us find the appropriate messages when debugging
     private static final String LOG_TAG = "audioRecorder";
+    private static final String PARENT_DIRECTORY = null;
     //This is used to name our recorded files
     private static String fileName = null;
+
 
     //RecordButton is a class we will create
     // that extend a basic button
@@ -134,6 +137,7 @@ public class audioRecorder extends AppCompatActivity {
                 else
                     setText("Start Recording");
                 startRecording = !startRecording;
+
             }
         };
 
@@ -170,8 +174,10 @@ public class audioRecorder extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        fileName = getExternalCacheDir().getAbsolutePath();
+        final String parentDirectory = fileName = getExternalCacheDir().getAbsolutePath();
+
         fileName += "/baby's_first_save_file.3gp";
+        Toast.makeText(this, fileName, Toast.LENGTH_SHORT);
 
         ActivityCompat.requestPermissions(this, permissions,REQUEST_RECORD_AUDIO_PERMISSION);
 
