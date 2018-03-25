@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -44,12 +45,12 @@ public class audioRecorder extends AppCompatActivity {
 
     //This constant is sent in our various permissions request
     //I don't know why it's 200 yet ¯\_(ツ)_/¯
-    private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
+    protected static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     //Set initial permission to false so we don't automatically
     //start recording
-    private boolean permissionToRecordAccepted = false;
+    protected boolean permissionToRecordAccepted = false;
     //Haul in a permission that was added to the manifest
-    private String [] permissions = {android.Manifest.permission.RECORD_AUDIO};
+    protected String [] permissions = {android.Manifest.permission.RECORD_AUDIO};
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -209,5 +210,12 @@ public class audioRecorder extends AppCompatActivity {
             recorder.release();
             recorder = null;
         }
+    }
+
+    public void createFileName(View view){
+        EditText recordingNameField = (EditText)findViewById(R.id.recordingNameField);
+        String userInput = recordingNameField.getText().toString();
+        fileName = getExternalCacheDir().getAbsolutePath() + '/' + userInput + ".3gp";
+        Toast.makeText(this, fileName, Toast.LENGTH_SHORT).show();
     }
 }
